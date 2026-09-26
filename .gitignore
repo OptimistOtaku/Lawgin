@@ -27,5 +27,11 @@ Thumbs.db
 # TypeScript cache
 *.tsbuildinfo
 
+# Test coverage output
+coverage/
+
+# Vercel
+.vercel
+
 # Logs
 *.log

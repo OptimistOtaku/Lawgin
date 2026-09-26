@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GeminiService, DEFAULT_MODEL } from '../services/geminiService';
 import { Key, CheckCircle2, AlertTriangle, X, RefreshCw, Sparkles, ShieldCheck, Trash2 } from 'lucide-react';
 
@@ -31,6 +31,24 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onCon
     loading: false
   });
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  // Close on Escape and move focus into the dialog when it opens.
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    const focusTimer = window.setTimeout(() => {
+      dialogRef.current?.querySelector<HTMLInputElement>('input')?.focus();
+    }, 0);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      window.clearTimeout(focusTimer);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleTest = async () => {
@@ -55,7 +73,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onCon
       aria-modal="true"
       aria-label="Gemini AI configuration"
     >
-      <div className="glass-panel w-full max-w-md p-6 text-slate-100 shadow-2xl relative">
+      <div ref={dialogRef} className="glass-panel w-full max-w-md p-6 text-slate-100 shadow-2xl relative">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800"

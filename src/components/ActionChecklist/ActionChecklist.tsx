@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ComplianceChecklistItem, DocumentAnalysis, RedlineCounterProposal } from '../../types/legal';
 import { GeminiService } from '../../services/geminiService';
 import confetti from 'canvas-confetti';
-import { CheckSquare, Calendar, Mail, Copy, Check, Sparkles, AlertCircle, Clock, Send } from 'lucide-react';
+import { CheckSquare, Mail, Copy, Check, Sparkles, Clock } from 'lucide-react';
 
 interface ActionChecklistProps {
   analysis: DocumentAnalysis;

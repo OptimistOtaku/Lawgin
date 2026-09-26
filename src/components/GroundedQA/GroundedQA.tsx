@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Clause, DocumentAnalysis, PersonaType, QACitation, QAMessage } from '../../types/legal';
+import { DocumentAnalysis, PersonaType, QAMessage } from '../../types/legal';
 import { GeminiService } from '../../services/geminiService';
-import { TTSService } from '../../services/ttsService';
 import { MessageSquare, Sparkles, Send, Volume2, ShieldCheck, ExternalLink, HelpCircle } from 'lucide-react';
 
 interface GroundedQAProps {

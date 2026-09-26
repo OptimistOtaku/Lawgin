@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import { ComparisonDiffItem, ComparisonResult } from '../../types/legal';
 import { SampleContract } from '../../data/sampleContracts';
 import { GeminiService } from '../../services/geminiService';
-import { GitCompare, Sparkles, CheckCircle2, AlertTriangle, ArrowRight, Filter, ShieldCheck, ShieldAlert } from 'lucide-react';
+import { GitCompare, Sparkles, Filter } from 'lucide-react';
 
 interface ContractComparatorProps {
   currentContract: SampleContract;
 }
 
 export const ContractComparator: React.FC<ContractComparatorProps> = ({ currentContract }) => {
-  const [docAName, setDocAName] = useState(
+  const [docAName] = useState(
     currentContract.comparisonBaselineName || 'Balanced Industry Standard Model'
   );
-  const [docAText, setDocAText] = useState(
+  const [docAText] = useState(
     currentContract.comparisonBaselineText || 'Standard terms with mutual 30-day notice and capped liability.'
   );
 
-  const [docBName, setDocBName] = useState(currentContract.title);
-  const [docBText, setDocBText] = useState(currentContract.text);
+  const [docBName] = useState(currentContract.title);
+  const [docBText] = useState(currentContract.text);
 
   const [filter, setFilter] = useState<'all' | 'unfavorable' | 'favorable'>('all');
   const [isComparing, setIsComparing] = useState(false);

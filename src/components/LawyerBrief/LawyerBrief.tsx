@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DocumentAnalysis, LawyerIntakeDossier } from '../../types/legal';
 import { GeminiService } from '../../services/geminiService';
-import { Briefcase, Printer, Download, Sparkles, CheckCircle2, AlertOctagon, HelpCircle, FileText } from 'lucide-react';
+import { Briefcase, Printer, Download, Sparkles, AlertOctagon, HelpCircle, FileText } from 'lucide-react';
 
 interface LawyerBriefProps {
   analysis: DocumentAnalysis;
@@ -10,18 +10,15 @@ interface LawyerBriefProps {
 
 export const LawyerBrief: React.FC<LawyerBriefProps> = ({ analysis, userRole = 'Prospective Signatory / Client' }) => {
   const [dossier, setDossier] = useState<LawyerIntakeDossier | null>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
 
   // Auto-generate default dossier on mount
   React.useEffect(() => {
     const fetchDossier = async () => {
-      setIsGenerating(true);
       const res = await GeminiService.generateLawyerBrief(analysis, userRole);
       setDossier(res);
-      setIsGenerating(false);
     };
     fetchDossier();
-  }, [analysis.id, userRole]);
+  }, [analysis.id, userRole, analysis, userRole]);
 
   const handlePrint = () => {
     window.print();

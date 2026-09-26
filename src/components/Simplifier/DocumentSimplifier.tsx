@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Clause, DocumentAnalysis, PersonaType } from '../../types/legal';
-import { TTSService } from '../../services/ttsService';
-import { Sparkles, Volume2, VolumeX, ShieldCheck, ShieldAlert, ArrowRight, Check, Copy, ChevronDown, ChevronUp } from 'lucide-react';
+import { Sparkles, Volume2, VolumeX, ShieldCheck, ShieldAlert, Check, Copy, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface DocumentSimplifierProps {
   analysis: DocumentAnalysis;

@@ -98,7 +98,9 @@ export const ClassicalBackdrop: React.FC<ClassicalBackdropProps> = ({ isDark }) 
     }));
 
     let t = 0;
+    let paused = false;
     const draw = () => {
+      if (paused) return;
       t += 0.016;
       ctx.clearRect(0, 0, width, height);
       for (let i = 0; i < motes.length; i++) {
@@ -124,9 +126,20 @@ export const ClassicalBackdrop: React.FC<ClassicalBackdropProps> = ({ isDark }) 
     };
     raf = requestAnimationFrame(draw);
 
+    // Pause the render loop when the tab is hidden to save CPU / battery.
+    const onVisibility = () => {
+      paused = document.hidden;
+      if (!paused) {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [isDark]);
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Clause, DocumentAnalysis } from '../../types/legal';
-import { ShieldAlert, AlertOctagon, CheckCircle2, ShieldX, Zap, ArrowUpRight, Scale } from 'lucide-react';
+import { ShieldAlert, AlertOctagon, CheckCircle2, Zap, Scale } from 'lucide-react';
 
 interface RiskRadarProps {
   analysis: DocumentAnalysis;
@@ -188,7 +188,17 @@ export const RiskRadar: React.FC<RiskRadarProps> = ({ analysis, onSelectClause }
             {predatoryClauses.map((clause: Clause) => (
               <div
                 key={clause.id}
-                className="p-4 rounded-xl border border-rose-500/40 bg-slate-900/90 space-y-2.5 hover:border-rose-400 transition-colors"
+                role="button"
+                tabIndex={0}
+                onClick={() => onSelectClause && onSelectClause(clause.id)}
+                onKeyDown={(e) => {
+                  if ((e.key === 'Enter' || e.key === ' ') && onSelectClause) {
+                    e.preventDefault();
+                    onSelectClause(clause.id);
+                  }
+                }}
+                title="Open this clause in the Plain-English view"
+                className="p-4 rounded-xl border border-rose-500/40 bg-slate-900/90 space-y-2.5 hover:border-rose-400 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1">
                   <div className="flex items-center gap-2">

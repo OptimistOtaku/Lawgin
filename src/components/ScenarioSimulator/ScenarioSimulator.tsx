@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Clause, ScenarioSimulationResult } from '../../types/legal';
 import { SampleContract } from '../../data/sampleContracts';
 import { GeminiService } from '../../services/geminiService';
-import { PlayCircle, Sparkles, CheckCircle2, AlertTriangle, ShieldAlert, ArrowRight, Lightbulb } from 'lucide-react';
+import { PlayCircle, Sparkles, AlertTriangle, ShieldAlert, ArrowRight, Lightbulb } from 'lucide-react';
 
 interface ScenarioSimulatorProps {
   currentContract: SampleContract;

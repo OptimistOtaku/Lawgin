@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { DocumentAnalysis, PersonaType } from '../../types/legal';
 import { SAMPLE_CONTRACTS, SampleContract } from '../../data/sampleContracts';
 import { PIIShieldService, RedactionResult } from '../../services/piiRedactor';
-import { FileText, ShieldAlert, Sparkles, Upload, CheckCircle2, Clock, BookOpen, AlertTriangle } from 'lucide-react';
+import { FileText, ShieldAlert, Sparkles, Upload, CheckCircle2, Clock, BookOpen } from 'lucide-react';
 
 interface DocumentStudioProps {
   currentContract: SampleContract;
@@ -35,7 +35,8 @@ export const DocumentStudio: React.FC<DocumentStudioProps> = ({
   const [dragOver, setDragOver] = useState(false);
 
   const rawText = activeTab === 'benchmarks' ? currentContract.text : customText;
-  const redactionInfo: RedactionResult = PIIShieldService.redact(rawText);
+  // Redaction is a multi-regex sweep; memoize so typing doesn't re-scan the document.
+  const redactionInfo: RedactionResult = useMemo(() => PIIShieldService.redact(rawText), [rawText]);
   const displayedText = showPIIMaskedView ? redactionInfo.sanitizedText : rawText;
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

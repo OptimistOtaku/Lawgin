@@ -1,6 +1,5 @@
 export class TTSService {
   private static synth: SpeechSynthesis | null = typeof window !== 'undefined' ? window.speechSynthesis : null;
-  private static currentUtterance: SpeechSynthesisUtterance | null = null;
   private static isSpeaking = false;
   private static listeners: Set<(speaking: boolean, text: string) => void> = new Set();
 
@@ -42,16 +41,13 @@ export class TTSService {
 
     utterance.onend = () => {
       this.notify(false, '');
-      this.currentUtterance = null;
     };
 
     utterance.onerror = (e) => {
       console.warn('TTS Speech error:', e);
       this.notify(false, '');
-      this.currentUtterance = null;
     };
 
-    this.currentUtterance = utterance;
     this.synth.speak(utterance);
   }
 
@@ -59,7 +55,6 @@ export class TTSService {
     if (this.synth) {
       this.synth.cancel();
       this.notify(false, '');
-      this.currentUtterance = null;
     }
   }
 

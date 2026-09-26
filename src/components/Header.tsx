@@ -1,6 +1,6 @@
 import React from 'react';
 import { AccessibilitySettings, PersonaType } from '../types/legal';
-import { ShieldCheck, Scale, Sparkles, Key, Eye, EyeOff, Volume2, Type, Contrast, Sun, Moon } from 'lucide-react';
+import { ShieldCheck, Scale, Sparkles, Key, Eye, EyeOff, Type, Contrast, Sun, Moon } from 'lucide-react';
 
 interface HeaderProps {
   currentPersona: PersonaType;
